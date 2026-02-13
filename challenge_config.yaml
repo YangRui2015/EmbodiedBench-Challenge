@@ -17,12 +17,6 @@ published: True
 tags: 
   - embodied-agents
   - multi-modal-llms
-  - eb-alfred
-  - eb-habitat
-  - eb-navigation
-  - eb-manipulation
-  - vision-language-models
-  - embodied-ai
   - cvpr-workshop
 leaderboard:
   - id: 1
