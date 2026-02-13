@@ -75,7 +75,6 @@ challenge_phases:
     slug: dev_phase
     leaderboard_public: False
     is_public: True
-    challenge: 1
     is_active: True
     max_concurrent_submissions_allowed: 5
     allowed_email_ids: []
@@ -129,7 +128,6 @@ challenge_phases:
     slug: test_phase
     leaderboard_public: True
     is_public: True
-    challenge: 1
     is_active: True
     max_concurrent_submissions_allowed: 5
     allowed_email_ids: []
