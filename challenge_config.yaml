@@ -72,7 +72,7 @@ challenge_phases:
   - id: 1
     name: Development Phase
     description: templates/challenge_phase_1_description.html
-    slug: development-phase
+    slug: dev_phase
     leaderboard_public: False
     is_public: True
     challenge: 1
@@ -126,7 +126,7 @@ challenge_phases:
   - id: 2
     name: Test Phase
     description: templates/challenge_phase_2_description.html
-    slug: test-phase
+    slug: test_phase
     leaderboard_public: True
     is_public: True
     challenge: 1
