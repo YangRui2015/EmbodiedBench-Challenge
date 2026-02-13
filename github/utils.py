@@ -146,7 +146,7 @@ def load_host_configs(config_path):
                 sys.exit(1)
         data = json.loads(data)
         data["token"] = os.environ["EVALAI_USER_AUTH_TOKEN"]
-        # host_auth_token = data["token"]
+        host_auth_token = data["token"]
         challenge_host_team_pk = data["team_pk"]
         evalai_host_url = data["evalai_host_url"]
         return [host_auth_token, challenge_host_team_pk, evalai_host_url]
