@@ -1,1 +1,20 @@
-<p>Submit any blank file here to see a random number generated for your submission. If you get lucky, you might reach the top of the leaderboard.</p>
+<h2>Submission Guidelines</h2>
+
+<p>
+  The EvalAI submission portal will be used for the EmbodiedBench Challenge at the CVPR 2026 Workshop on Foundation Models Meet Embodied Agents (FMEA) Challenges. The submission deadline is <strong>May 1, 2026, 23:59 AoE (Anywhere on Earth)</strong>.
+</p>
+
+<p>
+  For the planned prediction-file workflow, submit a single <code>.jsonl</code> file, or a compressed <code>.jsonl.gz</code> / <code>.zip</code> package, with one JSON object per line. Each object should include a unique sample identifier and the model prediction for that sample.
+</p>
+
+<pre><code>{"sample_id":"eb_000001","prediction":"[PickupObject, PutObject, ...]"}
+{"sample_id":"eb_000002","prediction":"[MoveAhead, TurnLeft, ...]"}</code></pre>
+
+<p>
+  Each test sample should have exactly one prediction. Duplicate sample IDs may invalidate the submission, and missing sample IDs may be counted as incorrect or invalid depending on the final evaluation protocol.
+</p>
+
+<p>
+  Please disclose external datasets, pre-trained models, commercial APIs, simulation tools, and other major resources in the submission metadata. Do not use hidden test labels or human-in-the-loop labeling on the held-out test set.
+</p>
