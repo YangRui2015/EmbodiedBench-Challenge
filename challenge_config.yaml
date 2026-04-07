@@ -17,10 +17,8 @@ published: True
 tags:
   - embodied-ai
   - multimodal-large-language-models
-  - vision-language-models
   - benchmark
   - cvpr-2026
-  - fmea
 leaderboard:
   - id: 1
     schema:
