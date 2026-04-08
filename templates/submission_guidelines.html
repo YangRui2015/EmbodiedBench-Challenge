@@ -8,34 +8,47 @@
   First, run your model or agent with the official EmbodiedBench code to generate rollout trajectories and result files for EB-ALFRED and EB-Navigation. A typical raw rollout directory for an environment looks like:
 </p>
 
-<pre><code>eb_alfred/model_experiment/
-├── summary_all.json
-├── base/
-│   ├── config.txt
-│   ├── episode_1_step_19.json
-│   ├── episode_2_step_10.json
-│   ├── images/
-│   │   ├── episode_1/
-│   │   └── episode_2/
-│   └── results/
-│       ├── episode_1_final_res.json
-│       ├── episode_2_final_res.json
-│       └── summary.json
-└── common_sense/
-    ├── config.txt
-    ├── episode_1_step_14.json
-    ├── images/
-    │   └── episode_1/
-    └── results/
-        ├── episode_1_final_res.json
-        └── summary.json</code></pre>
+<pre style="background: #f7f7f7; border: 1px solid #ddd; border-radius: 4px; padding: 12px; overflow-x: auto; white-space: pre; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 13px; line-height: 1.45;">eb_alfred/model_experiment/
+|-- summary_all.json
+|-- base/
+|   |-- config.txt
+|   |-- episode_1_step_19.json
+|   |-- episode_2_step_10.json
+|   |-- ...
+|   |-- episode_50_step_11.json
+|   |-- images/
+|   |   |-- episode_1/
+|   |   |-- episode_2/
+|   |   |-- ...
+|   |   `-- episode_50/
+|   `-- results/
+|       |-- episode_1_final_res.json
+|       |-- episode_2_final_res.json
+|       |-- ...
+|       |-- episode_50_final_res.json
+|       `-- summary.json
+`-- common_sense/
+    |-- config.txt
+    |-- episode_1_step_14.json
+    |-- episode_2_step_19.json
+    |-- ...
+    |-- episode_50_step_19.json
+    |-- images/
+    |   |-- episode_1/
+    |   |-- ...
+    |   `-- episode_50/
+    `-- results/
+        |-- episode_1_final_res.json
+        |-- ...
+        |-- episode_50_final_res.json
+        `-- summary.json</pre>
 
 <p>
   Use the provided JSON extraction script to copy only the episode JSON files into a compact <code>results/</code> directory while preserving the environment, experiment, and subset directory structure. The submitted zip file must contain the two environment roots <code>results/eb_alfred/</code> and <code>results/eb_navigation/</code>. Then compress the <code>results/</code> directory as a zip file and submit that zip file to EvalAI.
 </p>
 
-<pre><code>python copy_json.py --source /path/to/embodiedbench_rollouts --output results
-zip -r results.zip results</code></pre>
+<pre style="background: #f7f7f7; border: 1px solid #ddd; border-radius: 4px; padding: 12px; overflow-x: auto; white-space: pre; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 13px; line-height: 1.45;">python copy_json.py --source /path/to/embodiedbench_rollouts --output results
+zip -r results.zip results</pre>
 
 <p>
   The EvalAI evaluator will extract the submitted zip file and compute each environment's average success rate and average episode length from the submitted episode JSON files. Do not modify hidden test labels, manually label held-out test examples, or use human-in-the-loop labeling on the held-out test set.
