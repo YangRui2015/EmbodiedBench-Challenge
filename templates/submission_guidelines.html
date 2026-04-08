@@ -5,16 +5,42 @@
 </p>
 
 <p>
-  For the planned prediction-file workflow, submit a single <code>.jsonl</code> file, or a compressed <code>.jsonl.gz</code> / <code>.zip</code> package, with one JSON object per line. Each object should include a unique sample identifier and the model prediction for that sample.
+  First, run your model or agent with the official EmbodiedBench code to generate rollout trajectories and result files for EB-ALFRED and EB-Navigation. A typical raw rollout directory for an environment looks like:
 </p>
 
-<pre><code>{"sample_id":"eb_000001","prediction":"[PickupObject, PutObject, ...]"}
-{"sample_id":"eb_000002","prediction":"[MoveAhead, TurnLeft, ...]"}</code></pre>
+<pre><code>eb_alfred/model_experiment/
+├── summary_all.json
+├── base/
+│   ├── config.txt
+│   ├── episode_1_step_19.json
+│   ├── episode_2_step_10.json
+│   ├── images/
+│   │   ├── episode_1/
+│   │   └── episode_2/
+│   └── results/
+│       ├── episode_1_final_res.json
+│       ├── episode_2_final_res.json
+│       └── summary.json
+└── common_sense/
+    ├── config.txt
+    ├── episode_1_step_14.json
+    ├── images/
+    │   └── episode_1/
+    └── results/
+        ├── episode_1_final_res.json
+        └── summary.json</code></pre>
 
 <p>
-  Each test sample should have exactly one prediction. Duplicate sample IDs may invalidate the submission, and missing sample IDs may be counted as incorrect or invalid depending on the final evaluation protocol.
+  Use the provided JSON extraction script to copy only the episode JSON files into a compact <code>results/</code> directory while preserving the environment, experiment, and subset directory structure. The submitted zip file must contain the two environment roots <code>results/eb_alfred/</code> and <code>results/eb_navigation/</code>. Then compress the <code>results/</code> directory as a zip file and submit that zip file to EvalAI.
+</p>
+
+<pre><code>python copy_json.py --source /path/to/embodiedbench_rollouts --output results
+zip -r results.zip results</code></pre>
+
+<p>
+  The EvalAI evaluator will extract the submitted zip file and compute each environment's average success rate and average episode length from the submitted episode JSON files. Do not modify hidden test labels, manually label held-out test examples, or use human-in-the-loop labeling on the held-out test set.
 </p>
 
 <p>
-  Please disclose external datasets, pre-trained models, commercial APIs, simulation tools, and other major resources in the submission metadata. Do not use hidden test labels or human-in-the-loop labeling on the held-out test set.
+  Commercial APIs are not allowed. Open-source base models should be limited to fewer than <strong>10B parameters</strong>. Participants should fine-tune their own models for embodied decision making, or design agent skills and frameworks that enable strong performance.
 </p>

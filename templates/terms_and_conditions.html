@@ -5,10 +5,14 @@
 </p>
 
 <ul>
-  <li>Teams may use external datasets, pre-trained models, commercial APIs, and other tools, but must disclose major external resources in the submission metadata.</li>
-  <li>Teams must not use hidden test labels, manually label held-out test examples, or otherwise attempt to manipulate the evaluation.</li>
+  <li>Commercial APIs are not allowed. Participants should fine-tune their own models for embodied decision making, or design agent skills and frameworks that enable strong performance.</li>
+  <li>Open-source base models used by participants should be limited to fewer than <strong>10B parameters</strong> to emphasize algorithmic design rather than model scale.</li>
+  <li>Teams may use external datasets, pre-trained models, and other non-commercial tools.</li>
+  <li>Submitted models or frameworks must keep API compatibility with the official EmbodiedBench evaluation code, including the OpenAI chat-call format used by the benchmark interface.</li>
+  <li>First-stage submissions should include the original trajectory files and results produced by running the official EmbodiedBench code.</li>
+  <li>Teams must not use hidden test labels, manually label held-out test examples, use human-in-the-loop labeling on the test set, or otherwise attempt to manipulate the evaluation.</li>
   <li>Each team should submit under one team name. Duplicate or coordinated submissions intended to bypass submission limits may be disqualified.</li>
-  <li>Top-ranked teams may be asked to provide a short method description and reproducibility details before final ranking confirmation.</li>
+  <li>The top 5 teams will be invited to submit a report and may be asked to provide their models or framework code for held-out evaluation and final ranking confirmation.</li>
   <li>The organizers may update the evaluation protocol, deadlines, and submission instructions before the final evaluation phase opens.</li>
 </ul>
 

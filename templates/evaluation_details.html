@@ -1,17 +1,37 @@
 <h2>Evaluation Details</h2>
 
 <p>
-  Submissions will be evaluated on the ability to complete embodied tasks from visual observations and language instructions. The primary reported metrics are task success rates for <strong>EB-ALFRED</strong>, <strong>EB-Habitat</strong>, <strong>EB-Navigation</strong>, and <strong>EB-Manipulation</strong>, plus an <strong>Overall</strong> score that aggregates performance across the four environments.
+  Submissions will be evaluated on the ability to complete embodied tasks from visual observations and language instructions in <strong>EB-ALFRED</strong> and <strong>EB-Navigation</strong>. The primary ranking metric is <strong>Overall average task success rate</strong> across the evaluated tasks and environments.
 </p>
 
 <p>
-  The leaderboard ranks submissions by <strong>Overall</strong> score. Higher scores are better for all leaderboard metrics. If needed, ties will be resolved by higher low-level task performance on EB-Navigation and EB-Manipulation, followed by earlier submission time.
+  Higher Overall average task success rate is better. If two submissions have the same Overall average task success rate, ties will be resolved by <strong>average number of steps</strong>, with fewer steps ranked higher. We will not report capability-oriented breakdowns for the challenge leaderboard.
 </p>
 
 <p>
-  We may additionally report capability-oriented breakdowns for analysis, including basic task solving, commonsense reasoning, complex instruction understanding, spatial awareness, visual perception, and long-horizon planning. These breakdowns are intended to help participants understand model behavior and may not all be used for the primary ranking.
+  Submissions should include the original trajectory files and results produced by running the official EmbodiedBench code. Commercial APIs are not allowed. Participants should fine-tune their own models for embodied decision making, or design agent skills and frameworks that enable strong performance.
 </p>
 
 <p>
-  Final held-out test set details, exact aggregation weights, and any additional evaluation protocol updates will be announced before the final evaluation phase opens. The submission deadline is <strong>May 1, 2026, 23:59 AoE (Anywhere on Earth)</strong>.
+  To emphasize algorithmic design rather than model scale, open-source base models used by participants should be limited to fewer than <strong>10B parameters</strong>.
+</p>
+
+<p>
+  In the first stage, participants should run the official EmbodiedBench code and submit the extracted rollout trajectory JSON files. A typical raw EmbodiedBench rollout directory contains a top-level <code>summary_all.json</code>, subset folders such as <code>base/</code> and <code>common_sense/</code>, per-episode step files such as <code>episode_1_step_19.json</code>, image folders, and <code>results/episode_*_final_res.json</code> files.
+</p>
+
+<p>
+  Before submitting, participants should use the provided JSON extraction script to copy only the episode JSON files into a compact <code>results/</code> directory while preserving the environment, experiment, and subset directory structure. The zip file submitted to EvalAI should contain <code>results/eb_alfred/</code> and <code>results/eb_navigation/</code>.
+</p>
+
+<p>
+  After submission, the evaluator will extract the submitted zip file, scan the episode JSON files, compute the average success rate for each environment, and compute the average episode length. The leaderboard will use Overall average task success rate as the primary ranking metric and average episode length as the tie-breaker.
+</p>
+
+<p>
+  The top 5 teams will be invited to submit a report and may be asked to provide their models or framework code using the original APIs to interact with EmbodiedBench environments. We will evaluate these submissions on a held-out set to determine the final ranking.
+</p>
+
+<p>
+  The submission deadline is <strong>May 1, 2026, 23:59 AoE (Anywhere on Earth)</strong>.
 </p>
