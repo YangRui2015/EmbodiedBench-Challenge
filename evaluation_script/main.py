@@ -152,19 +152,15 @@ def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwarg
         except zipfile.BadZipFile as e:
             raise ValueError(f"Submission is not a valid ZIP file: {e}")
 
-        # Locate results root (handle both zip-with and zip-without top-level dir)
-        results_root = os.path.join(tmpdir, "results")
-        if not os.path.isdir(results_root):
-            # Try one level deeper (e.g. submission.zip/results/...)
-            candidates = glob.glob(os.path.join(tmpdir, "*", "results"))
-            if candidates:
-                results_root = candidates[0]
-            else:
-                # Fall back to tmpdir itself
-                results_root = tmpdir
-
-        alfred_dir = os.path.join(results_root, "eb_alfred")
-        nav_dir = os.path.join(results_root, "eb_nav")
+        # Locate eb_alfred and eb_nav dirs anywhere inside the extracted tree.
+        # This handles all common zip layouts:
+        #   submission.zip/eb_alfred/...
+        #   submission.zip/results/eb_alfred/...
+        #   submission.zip/submission_folder/eb_alfred/...
+        alfred_dirs = glob.glob(os.path.join(tmpdir, "**", "eb_alfred"), recursive=True)
+        nav_dirs    = glob.glob(os.path.join(tmpdir, "**", "eb_nav"),    recursive=True)
+        alfred_dir  = alfred_dirs[0] if alfred_dirs else os.path.join(tmpdir, "eb_alfred")
+        nav_dir     = nav_dirs[0]    if nav_dirs    else os.path.join(tmpdir, "eb_nav")
 
         alfred_sr, alfred_steps = eval_alfred(alfred_dir) if os.path.isdir(alfred_dir) else (None, None)
         nav_sr, nav_steps = eval_navigation(nav_dir) if os.path.isdir(nav_dir) else (None, None)

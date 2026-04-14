@@ -1,59 +1,72 @@
 <h2>Submission Guidelines</h2>
 
 <p>
-  The EvalAI submission portal will be used for the EmbodiedBench Challenge at the CVPR 2026 Workshop on Foundation Models Meet Embodied Agents (FMEA) Challenges. The first stage runs from <strong>May 1, 2026</strong> to <strong>May 22, 2026, 23:59 AoE (Anywhere on Earth)</strong>. The second stage runs from <strong>May 23, 2026</strong> to <strong>May 30, 2026, 23:59 AoE (Anywhere on Earth)</strong>.
+  The EvalAI submission portal is used for the EmbodiedBench Challenge at the CVPR 2026 Workshop on Foundation Models Meet Embodied Agents (FMEA) Challenges. Stage 1 runs from <strong>April 13, 2026</strong> to <strong>May 22, 2026, 23:59 AoE (Anywhere on Earth)</strong>. Stage 2 runs from <strong>May 23, 2026</strong> to <strong>May 28, 2026, 23:59 AoE (Anywhere on Earth)</strong>.
 </p>
 
 <p>
-  First, run your model or agent with the official EmbodiedBench code to generate rollout trajectories and result files for EB-ALFRED and EB-Navigation. A typical raw rollout directory for an environment looks like:
+  First, run your model or agent with the official EmbodiedBench code to generate rollout trajectories for EB-ALFRED and EB-Navigation. A typical raw rollout directory looks like:
 </p>
 
-<pre style="background: #f7f7f7; border: 1px solid #ddd; border-radius: 4px; padding: 12px; overflow-x: auto; white-space: pre; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 13px; line-height: 1.45;">eb_alfred/model_experiment/
+<pre style="background:#f7f7f7;border:1px solid #ddd;border-radius:4px;padding:12px;overflow-x:auto;white-space:pre;font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:13px;line-height:1.45;">eb_alfred/model_experiment/
 |-- summary_all.json
 |-- base/
-|   |-- config.txt
 |   |-- episode_1_step_19.json
 |   |-- episode_2_step_10.json
 |   |-- ...
-|   |-- episode_50_step_11.json
 |   |-- images/
-|   |   |-- episode_1/
-|   |   |-- episode_2/
-|   |   |-- ...
-|   |   `-- episode_50/
 |   `-- results/
 |       |-- episode_1_final_res.json
-|       |-- episode_2_final_res.json
-|       |-- ...
-|       |-- episode_50_final_res.json
-|       `-- summary.json
+|       `-- ...
 `-- common_sense/
-    |-- config.txt
     |-- episode_1_step_14.json
-    |-- episode_2_step_19.json
     |-- ...
-    |-- episode_50_step_19.json
     |-- images/
-    |   |-- episode_1/
-    |   |-- ...
-    |   `-- episode_50/
     `-- results/
         |-- episode_1_final_res.json
-        |-- ...
-        |-- episode_50_final_res.json
-        `-- summary.json</pre>
+        `-- ...</pre>
 
 <p>
-  Use the provided JSON extraction script to copy only the episode JSON files into a compact <code>results/</code> directory while preserving the environment, experiment, and subset directory structure. The submitted zip file must contain the two environment roots <code>results/eb_alfred/</code> and <code>results/eb_navigation/</code>. Then compress the <code>results/</code> directory as a zip file and submit that zip file to EvalAI.
+  Next, use <code>copy_json.py</code> from the <a href="https://github.com/EmbodiedBench/EmbodiedBench/blob/master/copy_json.py" target="_blank">EmbodiedBench repository</a> to extract only the episode JSON files. Run the script <strong>once per environment</strong>:
 </p>
 
-<pre style="background: #f7f7f7; border: 1px solid #ddd; border-radius: 4px; padding: 12px; overflow-x: auto; white-space: pre; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 13px; line-height: 1.45;">python copy_json.py --source /path/to/embodiedbench_rollouts --output results
-zip -r results.zip results</pre>
+<pre style="background:#f7f7f7;border:1px solid #ddd;border-radius:4px;padding:12px;overflow-x:auto;white-space:pre;font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:13px;line-height:1.45;">python copy_json.py --source path/to/running/eb_alfred/model_experiment \
+                    --output submission_folder/eb_alfred
+python copy_json.py --source path/to/running/eb_nav/model_experiment \
+                    --output submission_folder/eb_nav</pre>
 
 <p>
-  The EvalAI evaluator will extract the submitted zip file and compute each environment's average success rate and average episode length from the submitted episode JSON files. Do not modify hidden test labels, manually label held-out test examples, or use human-in-the-loop labeling on the held-out test set.
+  This produces the following compact structure:
+</p>
+
+<pre style="background:#f7f7f7;border:1px solid #ddd;border-radius:4px;padding:12px;overflow-x:auto;white-space:pre;font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:13px;line-height:1.45;">submission_folder/
+|-- eb_alfred/
+|   `-- model_experiment/
+|       |-- base/
+|       |   |-- episode_1_step_19.json
+|       |   `-- ...
+|       `-- common_sense/
+|           |-- episode_1_step_14.json
+|           `-- ...
+`-- eb_nav/
+    `-- model_experiment/
+        |-- base/
+        |   |-- episode_1.json
+        |   `-- ...
+        `-- common_sense/
+            |-- episode_1.json
+            `-- ...</pre>
+
+<p>
+  Finally, compress <code>submission_folder/</code> and submit the zip to EvalAI:
+</p>
+
+<pre style="background:#f7f7f7;border:1px solid #ddd;border-radius:4px;padding:12px;overflow-x:auto;white-space:pre;font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:13px;line-height:1.45;">cd submission_folder && zip -r ../submission.zip . && cd ..</pre>
+
+<p>
+  The evaluator will extract the zip, scan all episode JSON files under <code>eb_alfred/</code> and <code>eb_nav/</code>, compute each environment's average success rate and average episode length, and update the leaderboard automatically.
 </p>
 
 <p>
-  Commercial APIs are not allowed. Open-source base models should be limited to fewer than <strong>10B parameters</strong>. Participants should fine-tune their own models for embodied decision making, or design agent skills and frameworks that enable strong performance.
+  Commercial APIs are not allowed. Open-source base models should be limited to fewer than <strong>10B parameters</strong>. Do not modify episode JSON files or use human-in-the-loop labeling on held-out examples.
 </p>
