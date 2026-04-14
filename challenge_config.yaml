@@ -27,33 +27,27 @@ leaderboard:
         "metadata": {
           "Overall Score": {
             "sort_ascending": False,
-            "description": "Average task success rate across EB-ALFRED and EB-Navigation.",
-            "is_hidden": False
+            "description": "Average task success rate across EB-ALFRED and EB-Navigation."
           },
           "ALFRED SR": {
             "sort_ascending": False,
-            "description": "Task success rate on EB-ALFRED (%).",
-            "is_hidden": False
+            "description": "Task success rate on EB-ALFRED (%)."
           },
           "ALFRED Steps": {
             "sort_ascending": True,
-            "description": "Average steps per episode on EB-ALFRED (lower is better).",
-            "is_hidden": False
+            "description": "Average steps per episode on EB-ALFRED (lower is better)."
           },
           "Navigation SR": {
             "sort_ascending": False,
-            "description": "Task success rate on EB-Navigation (%).",
-            "is_hidden": False
+            "description": "Task success rate on EB-Navigation (%)."
           },
           "Navigation Steps": {
             "sort_ascending": True,
-            "description": "Average steps per episode on EB-Navigation (lower is better).",
-            "is_hidden": False
+            "description": "Average steps per episode on EB-Navigation (lower is better)."
           },
           "Average Steps": {
             "sort_ascending": True,
-            "description": "Average of per-environment avg steps, used as tiebreaker (lower is better).",
-            "is_hidden": False
+            "description": "Average of per-environment avg steps, used as tiebreaker (lower is better)."
           }
         }
       }
