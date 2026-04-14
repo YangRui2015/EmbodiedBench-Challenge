@@ -11,7 +11,7 @@ category: [Paper, Dataset, Environment, Workshop]
 leaderboard_description: Held-out test performance for vision-driven embodied agents across EB-ALFRED and EB-Navigation.
 evaluation_script: evaluation_script.zip
 remote_evaluation: False
-start_date: 2026-04-13 00:00:00
+start_date: 2026-04-15 00:00:00
 end_date: 2026-05-28 23:59:59
 published: True
 tags:
@@ -64,7 +64,7 @@ challenge_phases:
     allowed_email_ids: []
     disable_logs: False
     is_submission_public: True
-    start_date: 2026-04-13 00:00:00
+    start_date: 2026-04-15 00:00:00
     end_date: 2026-05-22 23:59:59
     test_annotation_file: annotations/test_annotations_devsplit.json
     codename: dev
