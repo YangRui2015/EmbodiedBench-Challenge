@@ -10,7 +10,7 @@ submission_guidelines: templates/submission_guidelines.html
 category: [Paper, Dataset, Environment, Workshop]
 leaderboard_description: Held-out test performance for vision-driven embodied agents across EB-ALFRED and EB-Navigation.
 evaluation_script: evaluation_script.zip
-remote_evaluation: False
+remote_evaluation: True
 start_date: 2026-04-13 00:00:00
 end_date: 2026-05-28 23:59:59
 published: True
