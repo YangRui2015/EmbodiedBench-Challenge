@@ -133,6 +133,13 @@ jobs:
         with:
           ref: challenge
 
+      - name: Inject EvalAI auth token
+        run: |
+          jq --arg token "$EVALAI_AUTH_TOKEN" '.token = $token' github/host_config.json > github/host_config.tmp.json
+          mv github/host_config.tmp.json github/host_config.json
+        env:
+          EVALAI_AUTH_TOKEN: ${{ secrets.EVALAI_AUTH_TOKEN }}
+
       - name: Set up Python (GitHub-hosted only)
         if: needs.validate-host-config.outputs.requires_self_hosted != 'true'
         uses: actions/setup-python@v4
