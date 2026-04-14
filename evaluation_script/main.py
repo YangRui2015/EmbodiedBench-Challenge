@@ -6,13 +6,6 @@ import zipfile
 import tempfile
 
 
-# Leaderboard weights for Overall Score
-WEIGHTS = {
-    "alfred": 0.20,
-    "habitat": 0.20,
-    "navigation": 0.25,
-    "manipulation": 0.35,
-}
 
 
 def _last_valid_step(lines):
@@ -113,31 +106,20 @@ def eval_navigation(nav_dir):
     return round(successes / total * 100, 3), round(total_steps / total, 3)
 
 
-def compute_overall(alfred_sr, nav_sr, habitat_sr=None, manip_sr=None):
-    """
-    Weighted Overall Score using available environments.
-    Missing environments contribute 0 to numerator; their weight is still
-    included in the denominator so scores remain comparable across submissions
-    that cover different subsets of environments.
-    """
-    score = 0.0
-    score += WEIGHTS["alfred"] * (alfred_sr if alfred_sr is not None else 0.0)
-    score += WEIGHTS["habitat"] * (habitat_sr if habitat_sr is not None else 0.0)
-    score += WEIGHTS["navigation"] * (nav_sr if nav_sr is not None else 0.0)
-    score += WEIGHTS["manipulation"] * (manip_sr if manip_sr is not None else 0.0)
-    return round(score, 3)
+def compute_overall_score(alfred_sr, nav_sr):
+    """Simple average success rate across available environments."""
+    values = [v for v in [alfred_sr, nav_sr] if v is not None]
+    if not values:
+        return 0.0
+    return round(sum(values) / len(values), 3)
 
 
-def compute_weighted_avg_steps(alfred_steps, nav_steps, habitat_steps=None, manip_steps=None):
-    """
-    Same weights as Overall Score applied to avg steps (tiebreaker).
-    """
-    total = 0.0
-    total += WEIGHTS["alfred"] * (alfred_steps if alfred_steps is not None else 0.0)
-    total += WEIGHTS["habitat"] * (habitat_steps if habitat_steps is not None else 0.0)
-    total += WEIGHTS["navigation"] * (nav_steps if nav_steps is not None else 0.0)
-    total += WEIGHTS["manipulation"] * (manip_steps if manip_steps is not None else 0.0)
-    return round(total, 3)
+def compute_average_steps(alfred_steps, nav_steps):
+    """Simple average of per-environment avg steps."""
+    values = [v for v in [alfred_steps, nav_steps] if v is not None]
+    if not values:
+        return 0.0
+    return round(sum(values) / len(values), 3)
 
 
 def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwargs):
@@ -187,28 +169,17 @@ def evaluate(test_annotation_file, user_submission_file, phase_codename, **kwarg
         alfred_sr, alfred_steps = eval_alfred(alfred_dir) if os.path.isdir(alfred_dir) else (None, None)
         nav_sr, nav_steps = eval_navigation(nav_dir) if os.path.isdir(nav_dir) else (None, None)
 
-    print(f"ALFRED   — SR: {alfred_sr}%  Avg Steps: {alfred_steps}")
+    print(f"ALFRED     — SR: {alfred_sr}%  Avg Steps: {alfred_steps}")
     print(f"Navigation — SR: {nav_sr}%  Avg Steps: {nav_steps}")
 
-    overall_score = compute_overall(alfred_sr, nav_sr)
-    weighted_steps = compute_weighted_avg_steps(alfred_steps, nav_steps)
-
-    metrics = {
-        "ALFRED SR": alfred_sr,
-        "ALFRED Steps": alfred_steps,
-        "Habitat SR": None,
-        "Habitat Steps": None,
-        "Navigation SR": nav_sr,
-        "Navigation Steps": nav_steps,
-        "Manipulation SR": None,
-        "Manipulation Steps": None,
-        "Overall Score": overall_score,
-        "Weighted Avg Steps": weighted_steps,
+    metrics_clean = {
+        "Overall Score": compute_overall_score(alfred_sr, nav_sr),
+        "ALFRED SR": alfred_sr if alfred_sr is not None else 0,
+        "ALFRED Steps": alfred_steps if alfred_steps is not None else 0,
+        "Navigation SR": nav_sr if nav_sr is not None else 0,
+        "Navigation Steps": nav_steps if nav_steps is not None else 0,
+        "Average Steps": compute_average_steps(alfred_steps, nav_steps),
     }
-
-    # EvalAI requires None values to be absent or 0 in the result dict.
-    # Replace None with 0 so the leaderboard columns still populate.
-    metrics_clean = {k: (v if v is not None else 0) for k, v in metrics.items()}
 
     output = {
         "result": [{split_key: metrics_clean}],

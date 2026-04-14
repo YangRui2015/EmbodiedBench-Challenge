@@ -22,24 +22,32 @@ leaderboard:
   - id: 1
     schema:
       {
-        "labels": ["Overall", "EB-ALFRED", "EB-Navigation", "Average Steps"],
-        "default_order_by": "Overall",
+        "labels": ["Overall Score", "ALFRED SR", "ALFRED Steps", "Navigation SR", "Navigation Steps", "Average Steps"],
+        "default_order_by": "Overall Score",
         "metadata": {
-          "Overall": {
+          "Overall Score": {
             "sort_ascending": False,
-            "description": "Average task success rate across EB-ALFRED and EB-Navigation.",
+            "description": "Average task success rate across EB-ALFRED and EB-Navigation."
           },
-          "EB-ALFRED": {
+          "ALFRED SR": {
             "sort_ascending": False,
-            "description": "Task success rate on EB-ALFRED.",
+            "description": "Task success rate on EB-ALFRED (%)."
           },
-          "EB-Navigation": {
+          "ALFRED Steps": {
+            "sort_ascending": True,
+            "description": "Average steps per episode on EB-ALFRED (lower is better)."
+          },
+          "Navigation SR": {
             "sort_ascending": False,
-            "description": "Task success rate on EB-Navigation.",
+            "description": "Task success rate on EB-Navigation (%)."
+          },
+          "Navigation Steps": {
+            "sort_ascending": True,
+            "description": "Average steps per episode on EB-Navigation (lower is better)."
           },
           "Average Steps": {
             "sort_ascending": True,
-            "description": "Average episode length used as the tie-breaker.",
+            "description": "Average of per-environment avg steps, used as tiebreaker (lower is better)."
           }
         }
       }
