@@ -108,9 +108,9 @@ challenge_phases:
     end_date: 2026-05-28 23:59:59
     test_annotation_file: annotations/test_annotations_testsplit.json
     codename: test
-    max_submissions_per_day: 5
-    max_submissions_per_month: 5
-    max_submissions: 5
+    max_submissions_per_day: 1
+    max_submissions_per_month: 1
+    max_submissions: 1
     default_submission_meta_attributes:
       - name: method_name
         is_visible: True
