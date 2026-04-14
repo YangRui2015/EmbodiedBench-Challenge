@@ -82,15 +82,6 @@ challenge_phases:
         type: radio
         options: ["open-source MLLM", "fine-tuned MLLM", "agent framework", "other"]
         required: True
-      - name: external_resources
-        description: External datasets, models, APIs, or tools used by the submission.
-        type: checkbox
-        options: ["external datasets", "pre-trained models", "simulation tools"]
-        required: False
-      - name: uses_test_labels
-        description: Confirm that the submission does not use hidden test labels or human-in-the-loop labeling on the test set.
-        type: boolean
-        required: True
     is_restricted_to_select_one_submission: False
     is_partial_submission_evaluation_enabled: False
     allowed_submission_file_types: ".zip"
@@ -130,15 +121,6 @@ challenge_phases:
         description: Main method category.
         type: radio
         options: ["open-source MLLM", "fine-tuned MLLM", "agent framework", "other"]
-        required: True
-      - name: external_resources
-        description: External datasets, models, APIs, or tools used by the submission.
-        type: checkbox
-        options: ["external datasets", "pre-trained models", "simulation tools"]
-        required: False
-      - name: uses_test_labels
-        description: Confirm that the submission does not use hidden test labels or human-in-the-loop labeling on the test set.
-        type: boolean
         required: True
     is_restricted_to_select_one_submission: False
     is_partial_submission_evaluation_enabled: False
