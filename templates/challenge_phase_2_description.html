@@ -33,27 +33,21 @@
 
 <p><strong>Option B — Custom agent framework:</strong></p>
 <p>
-  Design and submit a custom agent framework by modifying the <code>planner/</code> directory of the <a href="https://github.com/EmbodiedBench/EmbodiedBench" target="_blank">EmbodiedBench repository</a>. Teams may customize <code>planner.py</code> and related files to implement novel prompting strategies, reasoning chains, action selection logic, and multi-turn memory. Teams may also provide a custom <code>server.py</code> for their model backend if needed.
+  Design and submit a custom agent framework by modifying the <code>planner/</code> directory of the <a href="https://github.com/EmbodiedBench/EmbodiedBench" target="_blank">EmbodiedBench repository</a>. Teams may customize <code>planner.py</code> and related files to implement novel prompting strategies, reasoning chains, action selection logic, and multi-turn memory.
 </p>
 <p>
   Constraints: teams may only modify files under <code>planner/</code> and add new supporting modules. Evaluator code, environment code, and metric computation must remain unchanged.
 </p>
-<p>
-  The organizers will run evaluation using:
-</p>
-<pre style="background:#f7f7f7;border:1px solid #ddd;border-radius:4px;padding:12px;overflow-x:auto;white-space:pre;font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:13px;line-height:1.45;">python -m embodiedbench.main env=eb-alf model_type=custom exp_name=&lt;team&gt;
-python -m embodiedbench.main env=eb-nav model_type=custom exp_name=&lt;team&gt;</pre>
 
-<h3>Submission Package</h3>
+<h3>Stage 2 Submission Requirements</h3>
 <p>
-  Regardless of which option you choose, submit a <strong>zip archive</strong> containing:
+  Submit a <strong>zip archive</strong> containing required files to reproduce your results under the EmbodiedBench framework, such as:
 </p>
 <ul>
-  <li>Your modified code (model weights via Hugging Face model ID / link, or code for Option B)</li>
+  <li>Your modified code or model weights (e.g., Hugging Face model ID / link, or modified <code>planner/</code> files for Option B)</li>
   <li>A <code>README.md</code> with step-by-step instructions for setting up and launching your system</li>
   <li>A <code>requirements.txt</code> or equivalent listing all dependencies</li>
   <li>A startup script and any required arguments</li>
-  <li>A brief technical description of your approach (1–4 pages)</li>
 </ul>
 
 <p>
