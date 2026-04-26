@@ -1,7 +1,7 @@
 <h2>Final Held-out Test Phase</h2>
 
 <p>
-  This phase evaluates the top 5 teams from Stage 1 on a held-out test set for the EmbodiedBench Challenge at the CVPR 2026 Workshop on Foundation Models Meet Embodied Agents (FMEA) Challenges.
+  This phase evaluates the top 5 teams from Stage 1 on a held-out test set for the EmbodiedBench Challenge at the CVPR 2026 Workshop on Foundation Models Meet Embodied Agents (FMEA) Challenges. The held-out tasks are drawn from <strong>EB-ALFRED</strong> and <strong>EB-Navigation</strong> and will be released after Stage 2 concludes.
 </p>
 
 <p>
@@ -19,7 +19,7 @@
 </p>
 
 <p>
-  The submitted system must be runnable by the organizers against the EmbodiedBench environments via one of the following two interfaces:
+  The submitted system must be runnable by the organizers against the EmbodiedBench held-out environments via one of the following two options:
 </p>
 
 <p><strong>Option A — vLLM-compatible model server:</strong></p>
@@ -28,43 +28,38 @@
 </p>
 <pre style="background:#f7f7f7;border:1px solid #ddd;border-radius:4px;padding:12px;overflow-x:auto;white-space:pre;font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:13px;line-height:1.45;">vllm serve &lt;your-model&gt; --host 0.0.0.0 --port 8000</pre>
 <p>
-  The model will then be evaluated against the held-out test set using the standard EmbodiedBench pipeline. Provide the model path or Hugging Face model ID and any required <code>vllm serve</code> arguments in your submission.
+  The model will be evaluated using the standard EmbodiedBench pipeline. Provide the model path or Hugging Face model ID and any required <code>vllm serve</code> arguments in your submission.
 </p>
 
-<p><strong>Option B — Custom agent framework server:</strong></p>
+<p><strong>Option B — Custom agent framework:</strong></p>
 <p>
-  Submit a custom agent framework that exposes an HTTP server on a specified port and implements an OpenAI-compatible chat completions interface. The server must accept POST requests at <code>/v1/chat/completions</code> in the following format:
+  Design and submit a custom agent framework by modifying the <code>planner/</code> directory of the <a href="https://github.com/EmbodiedBench/EmbodiedBench" target="_blank">EmbodiedBench repository</a>. Teams may customize <code>planner.py</code> and related files to implement novel prompting strategies, reasoning chains, action selection logic, and multi-turn memory. Teams may also provide a custom <code>server.py</code> for their model backend if needed.
 </p>
-<pre style="background:#f7f7f7;border:1px solid #ddd;border-radius:4px;padding:12px;overflow-x:auto;white-space:pre;font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:13px;line-height:1.45;">POST /v1/chat/completions
-{
-  "model": "&lt;model-name&gt;",
-  "messages": [
-    {"role": "user", "content": [
-      {"type": "text", "text": "&lt;instruction&gt;"},
-      {"type": "image_url", "image_url": {"url": "data:image/jpeg;base64,&lt;...&gt;"}}
-    ]}
-  ]
-}</pre>
 <p>
-  and return a response in the standard OpenAI chat completions format. The organizers will start your server and point the EmbodiedBench evaluation pipeline to it. Provide a startup script and any required dependencies in your submission.
+  Constraints: teams may only modify files under <code>planner/</code> and add new supporting modules. Evaluator code, environment code, and metric computation must remain unchanged.
 </p>
+<p>
+  The organizers will run evaluation using:
+</p>
+<pre style="background:#f7f7f7;border:1px solid #ddd;border-radius:4px;padding:12px;overflow-x:auto;white-space:pre;font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:13px;line-height:1.45;">python -m embodiedbench.main env=eb-alf model_type=custom exp_name=&lt;team&gt;
+python -m embodiedbench.main env=eb-nav model_type=custom exp_name=&lt;team&gt;</pre>
 
 <h3>Submission Package</h3>
 <p>
-  Regardless of which option you choose, your submission package should include:
+  Regardless of which option you choose, submit a <strong>zip archive</strong> containing:
 </p>
 <ul>
-  <li>Model weights or code repository (e.g., Hugging Face model ID, GitHub link, or compressed archive)</li>
-  <li>A <code>README</code> with step-by-step instructions for launching the server</li>
-  <li>A complete list of dependencies (<code>requirements.txt</code> or equivalent)</li>
-  <li>Any <code>vllm serve</code> flags or startup script arguments needed</li>
-  <li>A brief technical report describing your approach (1–4 pages)</li>
+  <li>Your modified code (model weights via Hugging Face model ID / link, or code for Option B)</li>
+  <li>A <code>README.md</code> with step-by-step instructions for setting up and launching your system</li>
+  <li>A <code>requirements.txt</code> or equivalent listing all dependencies</li>
+  <li>A startup script and any required arguments</li>
+  <li>A brief technical description of your approach (1–4 pages)</li>
 </ul>
 
 <p>
-  The final ranking will be determined by the held-out test set evaluation results. Winners will be announced on <strong>May 31, 2026</strong>.
+  The final ranking will be determined by the held-out test set evaluation results. The held-out data will be released publicly after Stage 2 concludes. Winners will be announced on <strong>May 31, 2026</strong>.
 </p>
 
 <p>
-  <strong>Note:</strong> The deadline for submitting the Stage 2 model is <strong>May 26, 2026 (AoE)</strong>, to allow sufficient time for online evaluation and to address any engineering issues related to customization from participating teams. The Phase 2 portal closes on <strong>May 28, 2026, 23:59 AoE</strong>.
+  <strong>Note:</strong> The deadline for submitting the Stage 2 package is <strong>May 26, 2026 (AoE)</strong>, to allow sufficient time for online evaluation and to address any engineering issues related to customization from participating teams. The Phase 2 portal closes on <strong>May 28, 2026, 23:59 AoE</strong>.
 </p>
