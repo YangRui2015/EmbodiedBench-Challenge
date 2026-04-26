@@ -8,11 +8,11 @@
   <li>Commercial APIs are not allowed. Participants should fine-tune their own models for embodied decision making, or design agent skills and frameworks that enable strong performance.</li>
   <li>Open-source base models used by participants should be limited to fewer than <strong>10B parameters</strong> to emphasize algorithmic design rather than model scale.</li>
   <li>Teams may use external datasets, pre-trained models, and other non-commercial tools.</li>
-  <li>Submitted models or frameworks must keep API compatibility with the official EmbodiedBench evaluation code, including the OpenAI chat-call format used by the benchmark interface.</li>
-  <li>First-stage submissions should include the original trajectory files and results produced by running the official EmbodiedBench code.</li>
+  <li>Stage 1 submissions must include the original trajectory files produced by running the official EmbodiedBench code.</li>
+  <li>Stage 2 submissions must be reproducible under the EmbodiedBench framework. Teams may submit either a vLLM-servable model or a custom agent framework via a modified <code>planner/</code> directory. Evaluator code, environment code, and metric computation must remain unchanged.</li>
   <li>Teams must not use hidden test labels, manually label held-out test examples, use human-in-the-loop labeling on the test set, or otherwise attempt to manipulate the evaluation.</li>
   <li>Each team should submit under one team name. Duplicate or coordinated submissions intended to bypass submission limits may be disqualified.</li>
-  <li>The top 5 teams will be invited to submit a report and may be asked to provide their models or framework code for held-out evaluation and final ranking confirmation.</li>
+  <li>The top 5 teams will be invited to submit their model or agent framework code (as a zip archive with README and requirements) for held-out evaluation and final ranking confirmation. Teams may also be invited to submit a challenge technical report.</li>
   <li>The organizers may update the evaluation protocol, deadlines, and submission instructions before the final evaluation phase opens.</li>
 </ul>
 
