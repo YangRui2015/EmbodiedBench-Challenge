@@ -19,7 +19,7 @@
 </p>
 
 <p>
-  The submitted system must be runnable by the organizers against the EmbodiedBench held-out environments via one of the following two options:
+  The submitted system must be runnable by the organizers against the EmbodiedBench held-out environments. Teams may use either or both of the following options — they are not mutually exclusive:
 </p>
 
 <p><strong>Option A — vLLM-compatible model server:</strong></p>
@@ -37,6 +37,11 @@
 </p>
 <p>
   Constraints: teams may only modify files under <code>planner/</code> and add new supporting modules. Evaluator code, environment code, and metric computation must remain unchanged.
+</p>
+
+<p><strong>Option A + B — Fine-tuned model with custom agent framework:</strong></p>
+<p>
+  Teams may combine both options by submitting a fine-tuned model (served via vLLM) together with a custom <code>planner/</code> that calls it. This allows end-to-end optimization of both model weights and agent strategy.
 </p>
 
 <h3>Stage 2 Submission Requirements</h3>
